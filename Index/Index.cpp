@@ -1,9 +1,9 @@
 #include <iostream>
 #include "IndexMap.h"
 #include "Functions.h"
+#include "AsciiArts.h"
 
 using namespace std;
-
 int main() {
     bool refresh = false;
     int current = 0;
@@ -20,6 +20,14 @@ int main() {
     // start
     while (true) {
         system("cls");
+        /*string art = "";
+        if (completedItems < numberOfItems / 4)
+            art = arts[0];
+        else if (completedItems < numberOfItems / 2)
+            art = arts[1];
+        else
+            art = arts[2];
+        cout << art <<endl;*/
         showPath(current, currentType);
         if (refresh)
             cout << "Achievement: [ \033[1;31m" << completedItems << "\033[0m : " << numberOfItems << " ]" << endl;
@@ -32,6 +40,8 @@ int main() {
             current--;
             cout << "Completed 1 Item!" << endl;
             if (current < 0) {
+                system("cls");
+                cout << arts[4] << endl;
                 cout << "Completed All the Index!" << endl;
                 exit(0);
             }
