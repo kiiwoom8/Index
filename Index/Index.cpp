@@ -1,0 +1,141 @@
+#include <iostream>
+#include "IndexMap.h"
+#include "Functions.h"
+
+using namespace std;
+
+int main() {
+    bool first = true;
+    bool refresh = false;
+    int current = 0;
+    int prev = -1;
+    int numberOfItems = 0;
+    int completedItems = 0;
+    string currentType = "0";
+    string input = "";
+
+    for (auto const&[key, value] : items) {
+        if (key.length() == 7)
+            numberOfItems++;
+    }
+    // start
+    while (true) {
+        system("cls");
+        showPath(current, currentType);
+        if (refresh)
+            cout << "Achievement: [ \033[1;31m" << completedItems << "\033[0m : " << numberOfItems << " ]" << endl;
+        else
+            cout << "Achievement: [ " << completedItems << " : " << numberOfItems << " ]" << endl;
+        refresh = false;
+        insertItemsToPrint(current, prev, currentType);
+        // check item completed
+        if (currentItems.empty()) {
+            current--;
+            cout << "Completed 1 Item!" << endl;
+            if (current < 0) {
+                cout << "Completed All the Index!" << endl;
+                exit(0);
+            }
+            else if (current == 0)
+                currentType = "0";
+            else {
+                refresh = true;
+                completedItems++;
+                items.erase(currentType);
+                currentType = currentType.substr(0, 2 * current - 1);
+            }
+            continue;
+        }
+        cout << endl;
+        printItems(currentItems);
+        cout << endl;
+        // get input from user
+        cout << "Enter an item number or \"..\" to go back or q to quit the program: ";
+        getline(cin, input);
+        // quit
+        if (input == "q") {
+            do {
+                cout << "Really want to quit? (y: yes, n: no)" << endl;
+                getline(cin, input);
+                if (input == "y") {
+                    exit(0);
+                }
+                else if (input == "n") {
+                    continue;
+                }
+                else {
+                    cout << "You typed the wrong answer." << endl;
+                }
+            } while (input != "n");
+            continue;
+        }
+        // go back
+        if (input == "..") {
+            if (current == 0) {
+                cout << "Already in the parent path." << endl;
+                continue;
+            }
+            current--;
+            if (current == 0) {
+                currentType = "0";
+            }
+            else {
+                currentType = currentType.substr(0, 2 * current - 1);
+            }
+            continue;
+        }
+        // Check if the item exists
+        auto iter = currentItems.find(input);
+        if (iter == currentItems.end()) {
+            cout << "Item not found." << endl;
+            continue;
+        }
+        // require password
+        string password;
+        cout << "Password required to access " << iter->first << ": ";
+        getline(cin, password);
+        if (password == iter->second) {
+            currentType = input;
+            current++;
+        }
+        else 
+            cout << "Incorrect password." << endl;
+    }
+    return 0;
+}
+
+void showPath(int current, string currentType) {
+    for (int i = 0; i <= current; i++) {
+        cout << "> ";
+        if (i == 0) {
+            cout << "Index ";
+        }
+        else if (i == current) {
+            cout << "\033[1;31m" << items.find(currentType.substr(0, 2 * i - 1))->second << "\033[0m ";
+        }
+        else
+            cout << items.find(currentType.substr(0, 2 * i - 1))->second << " ";
+    }
+    cout << endl;
+}
+
+void printItems(map<string, string> currentItems) {
+    for (auto iter = currentItems.begin(); iter != currentItems.end(); ++iter) {
+        cout << iter->first;
+        if (next(iter) != currentItems.end()) {
+            cout << "     ";
+        }
+    }
+    cout << endl;
+}
+
+void insertItemsToPrint(int current, int prev, string currentType) {
+    if (prev != current) {
+        prev = current;
+        currentItems.clear();
+        for (auto const& [key, value] : items) {
+            if (key.length() == 2 * current + 1 && (currentType == "0" || key.substr(0, 2 * current - 1).find(currentType) != string::npos))
+                currentItems.insert({ key,value });
+        }
+    }
+}
