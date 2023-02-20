@@ -5,7 +5,6 @@
 using namespace std;
 
 int main() {
-    bool first = true;
     bool refresh = false;
     int current = 0;
     int prev = -1;
@@ -13,7 +12,7 @@ int main() {
     int completedItems = 0;
     string currentType = "0";
     string input = "";
-
+    // count the total number of items
     for (auto const&[key, value] : items) {
         if (key.length() == 7)
             numberOfItems++;

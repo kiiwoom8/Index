@@ -41,7 +41,7 @@ std::map<std::string, std::string> items = {
         {"1-3-2", "The Movement of Ions"},
         {"1-3-2-1", "Diffusion"},
         {"1-3-2-2", "Electricity"},
-        {"1-3-3", "The Ionic basis of the Membrane Potential"},
+        {"1-3-3", "The Ionic Basis of the Resting Membrane Potential"},
         {"1-3-3-1", "Equilibrium Potentials"},
         {"1-3-3-2", "The Distribution of Ions across the Membrane"},
         {"1-3-3-3", "Relative Ion Permeabilities of the Membrane at Rest"},
