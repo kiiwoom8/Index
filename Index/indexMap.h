@@ -62,7 +62,7 @@ std::map<std::string, std::string> items = {
         {"1-4-4-2", "Myelin and Saltatory Conduction"},
         {"1-4-5", "Action Potentials, Axons and Dendrites"},
         {"1-5", "Synaptic Transmission"},
-        {"1-5-1", "Types of Synaptics"},
+        {"1-5-1", "Types of Synapses"},
         {"1-5-1-1", "Electrical Synapses"},
         {"1-5-1-2", "Chemical Synapses"},
         {"1-5-2", "Principles of Chemical Synaptic Transmission"},
