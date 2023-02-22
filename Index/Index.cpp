@@ -4,12 +4,12 @@
 using namespace std;
 int main() {
     bool refresh = false;
-    bool refreshPointer = false;
+    bool refreshPoint = false;
     int current = 0;
     int prev = -1;
     int numberOfItems = 0;
     int completedItems = 0;
-    int pointer = 0;
+    int point = 0;
     string currentType = "0";
     string input = "";
     string empty = "";
@@ -35,17 +35,17 @@ int main() {
             cout << "Achievement: [ \033[1;31m" << completedItems << "\033[0m : " << numberOfItems << " ]" << endl;
         else
             cout << "Achievement: [ " << completedItems << " : " << numberOfItems << " ]" << endl;
-        if (refreshPointer)
-            cout << "Pointer: \033[1;31m" << pointer << "\033[0m" << endl;
+        if (refreshPoint)
+            cout << "Pointer: \033[1;31m" << point << "\033[0m" << endl;
         else
-            cout << "Pointer: " << pointer << endl;
+            cout << "Pointer: " << point << endl;
         refresh = false;
-        refreshPointer = false;
+        refreshPoint = false;
         insertItemsToPrint(current, prev, currentType);
         // check item completed
         if (currentItems.empty()) {
             current--;
-            pointer = pointer + 5;
+            point = point + 5;
             cout << "Completed 1 Item!" << endl;
             if (current < 0) {
                 system("cls");
@@ -118,8 +118,8 @@ int main() {
         }
         else {
             cout << "Incorrect password." << endl;
-                pointer--;
-                refreshPointer = true;
+                point--;
+                refreshPoint = true;
             }
     }
     return 0;
