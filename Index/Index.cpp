@@ -1,17 +1,19 @@
-#include <iostream>
 #include "IndexMap.h"
 #include "Functions.h"
 #include "AsciiArts.h"
-
 using namespace std;
 int main() {
     bool refresh = false;
+    bool refreshPointer = false;
     int current = 0;
     int prev = -1;
     int numberOfItems = 0;
     int completedItems = 0;
+    int pointer = 0;
     string currentType = "0";
     string input = "";
+    string empty = "";
+
     // count the total number of items
     for (auto const&[key, value] : items) {
         if (key.length() == 7)
@@ -33,15 +35,21 @@ int main() {
             cout << "Achievement: [ \033[1;31m" << completedItems << "\033[0m : " << numberOfItems << " ]" << endl;
         else
             cout << "Achievement: [ " << completedItems << " : " << numberOfItems << " ]" << endl;
+        if (refreshPointer)
+            cout << "Pointer: \033[1;31m" << pointer << "\033[0m" << endl;
+        else
+            cout << "Pointer: " << pointer << endl;
         refresh = false;
+        refreshPointer = false;
         insertItemsToPrint(current, prev, currentType);
         // check item completed
         if (currentItems.empty()) {
             current--;
+            pointer = pointer + 5;
             cout << "Completed 1 Item!" << endl;
             if (current < 0) {
                 system("cls");
-                cout << arts[4] << endl;
+                //cout << arts[4] << endl;
                 cout << "Completed All the Index!" << endl;
                 exit(0);
             }
@@ -79,7 +87,7 @@ int main() {
             continue;
         }
         // go back
-        if (input == "..") {
+        else if (input == "..") {
             if (current == 0) {
                 cout << "Already in the parent path." << endl;
                 continue;
@@ -96,7 +104,8 @@ int main() {
         // Check if the item exists
         auto iter = currentItems.find(input);
         if (iter == currentItems.end()) {
-            cout << "Item not found." << endl;
+            system("cls");
+            cerr << "\033[1;31mItem not found.\033[0m" << endl;
             continue;
         }
         // require password
@@ -107,8 +116,11 @@ int main() {
             currentType = input;
             current++;
         }
-        else 
+        else {
             cout << "Incorrect password." << endl;
+                pointer--;
+                refreshPointer = true;
+            }
     }
     return 0;
 }
