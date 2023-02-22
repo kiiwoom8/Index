@@ -35,17 +35,17 @@ int main() {
             cout << "Achievement: [ \033[1;31m" << completedItems << "\033[0m : " << numberOfItems << " ]" << endl;
         else
             cout << "Achievement: [ " << completedItems << " : " << numberOfItems << " ]" << endl;
-        if (refreshPoint)
-            cout << "Pointer: \033[1;31m" << point << "\033[0m" << endl;
+        if (refreshPoint || point < 0)
+            cout << "Point: \033[1;31m" << point << "\033[0m" << endl;
         else
-            cout << "Pointer: " << point << endl;
+            cout << "Point: " << point << endl;
         refresh = false;
         refreshPoint = false;
         insertItemsToPrint(current, prev, currentType);
         // check item completed
         if (currentItems.empty()) {
             current--;
-            point = point + 5;
+            point = point + 3;
             cout << "Completed 1 Item!" << endl;
             if (current < 0) {
                 system("cls");
@@ -57,6 +57,7 @@ int main() {
                 currentType = "0";
             else {
                 refresh = true;
+                refreshPoint = true;
                 completedItems++;
                 items.erase(currentType);
                 currentType = currentType.substr(0, 2 * current - 1);
@@ -67,7 +68,7 @@ int main() {
         printItems(currentItems);
         cout << endl;
         // get input from user
-        cout << "Enter an item number or \"..\" to go back or q to quit the program: ";
+        cout << "Enter an item number or \"..\" to go back or \"q\" to quit the program : ";
         getline(cin, input);
         // quit
         if (input == "q") {
@@ -118,7 +119,7 @@ int main() {
         }
         else {
             cout << "Incorrect password." << endl;
-                point--;
+                point = point - 10;
                 refreshPoint = true;
             }
     }
