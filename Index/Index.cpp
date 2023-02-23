@@ -19,6 +19,7 @@ int main() {
         if (key.length() == 7)
             numberOfItems++;
     }
+    //
     // start
     while (true) {
         system("cls");
