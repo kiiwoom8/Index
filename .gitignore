@@ -32,3 +32,6 @@
 *.app
 
 *.opendb
+
+x64/
+Index/x64/
